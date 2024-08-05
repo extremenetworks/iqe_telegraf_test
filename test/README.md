@@ -11,15 +11,20 @@ and AP CPU reading is saved in <apIp>_ap_*_show.txt. Server IP and AP IP must in
 
 To run test, in test directory:
 #pytest -v .
+
 To run test with console printout:
 #pytest -v -s .
 
-Recommand this REST API client:
-Name: REST Client
+Recommand REST Client in vscode:
+
 Id: humao.rest-client
+
 Description: REST Client for Visual Studio Code
+
 Version: 0.25.1
 Publisher: Huachao Mao
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=humao.rest-client.
+
 See examples in client.http to POST and GET
   
