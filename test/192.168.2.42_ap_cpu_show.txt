@@ -1,0 +1,13 @@
+Total MUs: 1
+
+MU 2A:BD:08:4A:9F:B8, vap wl1.0
+IPv4 192.168.2.103 0.0.0.0
+IPv6 link-local: fe80::1c81:7aad:7d92:7300
+policyName Enterprise User, topology 0, topology_id 0
+rcUlCIR 0, rcUlCBS 0, rcDlCIR 0, rcDlCBS 0
+rcUlDP 0, rcUlDB 0, rcDlDP 0, rcDlDB 0
+portClosed 0, AcAssocRx 1, li_attr_flags 0x0 
+li_flags 0x931 (Auth/Bridge/Redirect@AP)
+type:"iPhone/iPad/iPod/Watch/ATV"(292)  os:"Apple iOS"(101) weight:15 usrAgntChkCnt 15 dhcpHostname: 
+start time 1722823808, life time 0, default action "DefaultActionAllow", vlan 0
+CP flags 0x0 ()

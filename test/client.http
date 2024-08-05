@@ -1,0 +1,11 @@
+POST http://192.168.2.12:9000/v1 
+content-type: application/json
+
+{
+    "cpu": "0",
+    "usage": "50"
+}
+
+###
+
+GET http://192.168.2.12:9000/stats 

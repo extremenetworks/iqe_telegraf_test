@@ -1,0 +1,53 @@
+{
+    "cpuStats": [
+        {
+            "device": {
+                "serialnumber": "WM012227W-30008"
+            },
+            "items": [
+                {
+                    "keys": {
+                        "core": 0
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 1,
+                        "min": 0
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 1
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 1,
+                        "min": 0
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 2
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 0,
+                        "min": 0
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 3
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 1,
+                        "min": 0
+                    }
+                }
+            ],
+            "name": "CpuStats",
+            "ts": 1722872958123
+        }
+    ]
+}
