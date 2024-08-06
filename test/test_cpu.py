@@ -1,3 +1,4 @@
+import time
 import pytest
 import asyncio
 from aiohttp import web
@@ -54,12 +55,12 @@ user = 'admin'
 pwd = 'Aerohive123'
 config_cmd = ['telegraf platform stats cpu enable',
               'telegraf platform stats url http://192.168.2.12:9000/v1',
-          'telegraf platform stats cpu flush-interval 10'
-          'telegraf platform stats cpu sample-count 2',
-          'telegraf platform stats cpu sample-interval 5',
+              'telegraf platform stats flush-interval 10',
+              'telegraf platform stats cpu sample-count 3',
+              'telegraf platform stats cpu sample-interval 5',
           ]
 
-show_cmd = "_show report snapshot system\n"
+show_cmd = ['_show report snapshot system',]
 
 def run_remote_command(ssh, cmd, timeout, waitForResult=True):
     flag = 0
@@ -90,21 +91,66 @@ def run_remote_command(ssh, cmd, timeout, waitForResult=True):
         print(("\nException (%s) %s" % (err, str(traceback.format_exc()))))
         return flag, "Failed to do SSH connection, or timed out"
 
-def configure_ap_telegraf():
+class ShellConnect:
+    def __init__(self, hostname, port, username, password, ):
+        self.__ssh = None
+        self.__received = ('', '', '')  # stdin, stdout, stderr
+        self.__output = ''
+        try:
+            self.__ssh = paramiko.SSHClient()
+            self.__ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            self.__ssh.connect(hostname=hostname, port=port, username=username, password=password)
+            print('Connected to {}'.format(hostname))
+        except paramiko.AuthenticationException:
+            print('Failed to connect to {} due to wrong username/password'.format(hostname))
+        except:
+            print('Failed to connect to {}'.format(hostname))
+
+    def __del__(self):
+        self.__ssh.close()
+
+    @property
+    def getRcv(self):
+        return self.__output
+
+    async def execute(self, command_list):
+        ch = self.__ssh.invoke_shell(term='vt100', width=80, height=24, width_pixels=0, height_pixels=0,
+                                     environment=None)
+
+        out = ""
+        for command in command_list:
+            cmd = command.strip('\n')
+            print(cmd)
+            ch.send(cmd + '\n')
+            while not ch.recv_ready():
+                await asyncio.sleep(3)
+            out += ch.recv(1024).decode()
+        return out
+
+async def configure_ap_telegraf():
     print("=========== Configure Telegraf==============")
-    ssh1 = open_ap_ssh_connection(apIp, user, pwd)
-   
-    if ssh1 != None:
-        for cmd in config_cmd:
-            flag, result = run_remote_command(ssh1, cmd, 30)
-            print("cmd flag result", cmd, flag, result)
-        ssh1.close()
-    else:
-        print("ssh failed")
+    ssh_server = ShellConnect(apIp, 22, user, pwd)
 
-def get_ap_cpu():
+    result = await ssh_server.execute(config_cmd)
+    print("result", result)
+    time.sleep(0.2)
+    ssh_server.__del__()
+
+
+async def get_ap_cpu():
     print("===========Get AP CPU Show Results==============")
-
+    ssh_server = ShellConnect(apIp, 22, user, pwd)
+    output = await ssh_server.execute(show_cmd)
+    print("&&&&&&&&&&&&&&&&&")
+    print(output)
+    time.sleep(0.2)
+    ssh_server.__del__()
+    filename = apIp + "_ap_cpu_show.txt"
+    with open (filename, "w") as f:
+        # Write some text to the file
+        f.write (output)       
+    
+'''
     ssh1 = open_ap_ssh_connection(apIp, user, pwd)
     if ssh1 != None:
         flag, result = run_remote_command(ssh1, show_cmd, 30)
@@ -116,6 +162,7 @@ def get_ap_cpu():
             f.write (result)    
     else:
         print("ssh failed")
+'''
 
 async def test_post():
     #app = create_app()
@@ -128,13 +175,13 @@ async def test_post():
     #assert "new stats was added" in resp.text()
 
     remove_old_files()
-    #configure_ap_telegraf()
-
+    await configure_ap_telegraf()
+    
     process = subprocess.Popen(['python','server.py'], start_new_session=True)
     await asyncio.sleep(30)
     
     process.terminate()
-    #get_ap_cpu()
+    await get_ap_cpu()
 
     #Need to compare telegraf server's results with AP CPU readings
     #telegraf server saved received cpu stats in telegraf_stats_cpu*.json,
