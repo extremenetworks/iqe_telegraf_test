@@ -2,6 +2,7 @@ import asyncio
 from aiohttp import web
 import json
 import paramiko
+import traceback
 
 records_file = "telegraf_stats_cpu"
 number = 1

@@ -9,6 +9,7 @@ import os, glob
 import paramiko
 import common as common_m
 import yaml
+import traceback
 
 records_file = "telegraf_stats_cpu1.json"
 NOS_OPEN_API_PATH = "old-nos-openapi.yaml"
@@ -197,7 +198,7 @@ async def test_post():
     with open(records_file) as f:
         obj = json.load(f)
         validation = common_m.validate_object_spec(stats_element_spec, obj["cpuStats"][0], "CpuStatsCallbackElement", schemas_spec)
-        assert validation is None, f"{validation}, record={record}"
+        assert validation is None, f"{validation}"
         found_stats = True
 
     #Need to compare telegraf server's results with AP CPU readings
