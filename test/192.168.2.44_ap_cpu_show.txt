@@ -1,0 +1,15 @@
+Last login: Mon Aug 12 19:14:40 2024 from 192.168.2.12
+_show report snapshot system
+Copyright (c) 2006-2023 Extreme Networks, Inc.
+bui-flo-0008#_show report snapshot system
+Stats report system status of 324 seconds in report interval(600 seconds):
+Started at: 2024-08-12 19:10:01
+----------------------------------
+  Snapshot type: 3
+  Cpu max: 4%
+  Cpu average: 0%
+  Mem max: 41%
+  Mem average: 41%
+  Temperature: 55(degree C)
+
+bui-flo-0008#

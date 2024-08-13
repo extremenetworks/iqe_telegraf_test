@@ -7,8 +7,11 @@ import json
 import subprocess
 import os, glob
 import paramiko
+import common as common_m
+import yaml
 
-records_file = "telegraf_stats_cpu"
+records_file = "telegraf_stats_cpu1.json"
+NOS_OPEN_API_PATH = "old-nos-openapi.yaml"
 
 '''
 routes = web.RouteTableDef()
@@ -175,18 +178,32 @@ async def test_post():
     #assert "new stats was added" in resp.text()
 
     remove_old_files()
+    with open(NOS_OPEN_API_PATH, "r") as stream:
+        openapi_spec = yaml.safe_load(stream)
+        schemas_spec = openapi_spec.get("components", {}).get("schemas", {})
+        assert schemas_spec != {}, f"Cannot load OpenAPI spec for validating requests. Loaded spec missing 'components/schemas'"
+        stats_element_spec = schemas_spec.get("CpuStatsCallbackElement", {})
+        assert stats_element_spec != {}, f"Cannot load OpenAPI spec for validating requests. Loaded spec missing 'CpuStatsCallbackElement'"
+
     await configure_ap_telegraf()
     
     process = subprocess.Popen(['python','server.py'], start_new_session=True)
-    await asyncio.sleep(30)
+    await asyncio.sleep(20)
     
     process.terminate()
-    await get_ap_cpu()
+    #await get_ap_cpu()
+
+    found_stats = False
+    with open(records_file) as f:
+        obj = json.load(f)
+        validation = common_m.validate_object_spec(stats_element_spec, obj["cpuStats"][0], "CpuStatsCallbackElement", schemas_spec)
+        assert validation is None, f"{validation}, record={record}"
+        found_stats = True
 
     #Need to compare telegraf server's results with AP CPU readings
     #telegraf server saved received cpu stats in telegraf_stats_cpu*.json,
     #and AP CPU reading was saved in <apIp>_ap_cpu_show.txt.
     #assert "CPU usage in telegraf server" == "CPU usage in AP CPU reading"   
        
-    assert True
+    assert found_stats
 
