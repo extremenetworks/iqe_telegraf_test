@@ -2,3 +2,4 @@ pytest
 aiohttp   
 pytest-aiohttp   
 paramiko
+pyyaml
