@@ -12,7 +12,7 @@ import yaml
 import traceback
 
 records_file = "telegraf_stats_cpu1.json"
-NOS_OPEN_API_PATH = "old-nos-openapi.yaml"
+NOS_OPEN_API_PATH = "nos-openapi.yaml"
 
 '''
 routes = web.RouteTableDef()
