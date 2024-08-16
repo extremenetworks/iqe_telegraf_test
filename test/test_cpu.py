@@ -55,10 +55,11 @@ def open_ap_ssh_connection(apIp, user, password, timeout=30):
     return ssh
 
 apIp = os.getenv('DEVICE_IP', default='192.168.2.44')
+serverIp = os.getenv('SERVER_IP', default='192.168.2.12')
 user = 'admin'
 pwd = 'Aerohive123'
 config_cmd = ['telegraf platform stats cpu enable',
-              'telegraf platform stats url http://192.168.2.12:9000/v1',
+              f'telegraf platform stats url http://{serverIp}:9000/v1',
               'telegraf platform stats flush-interval 10',
               'telegraf platform stats cpu sample-count 3',
               'telegraf platform stats cpu sample-interval 5',
@@ -188,7 +189,8 @@ async def test_post():
 
     await configure_ap_telegraf()
     
-    process = subprocess.Popen(['python','server.py'], start_new_session=True)
+    # process = subprocess.Popen(['python','server.py'], start_new_session=True)
+    process = subprocess.Popen(['python','server.py'], start_new_session=True, env=os.environ.copy())
     await asyncio.sleep(20)
     
     process.terminate()
