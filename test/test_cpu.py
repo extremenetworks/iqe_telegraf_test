@@ -54,7 +54,7 @@ def open_ap_ssh_connection(apIp, user, password, timeout=30):
         return None
     return ssh
 
-apIp = '192.168.2.44'
+apIp = os.getenv('DEVICE_IP', default='192.168.2.44')
 user = 'admin'
 pwd = 'Aerohive123'
 config_cmd = ['telegraf platform stats cpu enable',
