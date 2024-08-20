@@ -4,7 +4,8 @@ Requirements:
 pytest     
 aiohttp   
 pytest-aiohttp   
-paramiko
+paramiko   
+pyyaml
 
 During tests, telegraf server saves received cpu stats in telegraf_stats_*.json,
 and AP CPU reading is saved in <apIp>_ap_*_show.txt. Server IP and AP IP must in the same subnet.
