@@ -58,7 +58,7 @@ apIp = '10.234.102.78'
 user = 'admin'
 pwd = 'Aerohive123'
 config_cmd = ['telegraf platform stats cpu enable',
-              'telegraf platform stats url http://10.234.91.180:5000/v1',
+              'telegraf platform stats url http://134.141.203.254:9000/v1',
               'telegraf platform stats flush-interval 10',
               'telegraf platform stats cpu sample-count 3',
               'telegraf platform stats cpu sample-interval 5',
