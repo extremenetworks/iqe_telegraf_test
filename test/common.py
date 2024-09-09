@@ -69,6 +69,16 @@ def validate_object_spec(spec, obj, obj_name, schemas_spec):
                 result = validate_object_spec(p_spec, obj[prop], obj_name + "." + prop, schemas_spec)
                 if result is not None:
                     return result
+    if spec.get("properties", ""):
+        for prop, p_spec in spec.get("properties", {}).items():
+            value = obj.get(prop)
+            print(f"Checking property: {prop}, Value: {value}")
+            if '$ref' in p_spec:
+                p_spec = get_ref_from_spec(schemas_spec,p_spec['$ref'])
+            if prop in obj:
+                result = validate_object_spec(p_spec, obj[prop], obj_name + "." + prop, schemas_spec)
+                if result is not None:
+                    return result
     elif spec.get("type", "") == "array":
         if type(obj) is not list:
             return f"{obj_name} must be an array"
