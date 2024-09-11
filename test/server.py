@@ -60,34 +60,29 @@ def open_ap_ssh_connection(apIp, user, password, timeout=60):
 apIp = '10.234.102.78'
 user = 'admin'
 pwd = 'Aerohive123'
-#pwd = 'new2day'
 config_cmd = ['telegraf platform stats cpu enable',
-              'telegraf platform stats url http://134.141.203.254:9000/v1',
-          'telegraf platform stats cpu flush-interval 10'
-          'telegraf platform stats cpu sample-count 2',
-          'telegraf platform stats cpu sample-interval 5',
-          ]
+              'telegraf platform stats url http://134.141.244.62:9000/v1',
+              'telegraf platform stats cpu flush-interval 10'
+              'telegraf platform stats cpu sample-count 2',
+              'telegraf platform stats cpu sample-interval 5',
+             ]
 
 show_cmd = "_show report snapshot system"
-#show_cmd = "cget muInfo wifi1"
 
 def run_remote_command(ssh, cmd, timeout, waitForResult=True):
     flag = 0
 
     try:
-        #print(" cmd =", cmd)
         transport = ssh.get_transport()
         channel = transport.open_session()
         stdin, stdout, stderr = ssh.exec_command(cmd , timeout=timeout)
-        #channel.exec_command(cmd)
         if waitForResult:
             out = stdout.read().decode().strip()
-            print("out", stdout.read())
+            print("out", out)
             error = stderr.read().decode().strip()
             print("error", error)
             stdout.flush()
             if error:
-                #print("cmd exec failed")
                 flag = 1
 
             if error:
@@ -112,11 +107,9 @@ def get_ap_cpu():
         ssh1.close()
         filename = apIp + "_ap_cpu_show.txt"
         with open (filename, "w") as f:
-            # Write some text to the file
             f.write (result)    
     else:
         print("ssh failed")
 
-#get_ap_cpu()
 
-web.run_app(init_app(), host='134.141.203.254', port=9000)
+web.run_app(init_app(), host='134.141.244.62', port=9000)

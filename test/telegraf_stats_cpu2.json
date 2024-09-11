@@ -1,4 +1,102 @@
 {
-    "cpu": "0",
-    "usage": "50"
+    "cpuStats": [
+        {
+            "device": {
+                "serialnumber": "HA012306Y-10028"
+            },
+            "items": [
+                {
+                    "keys": {
+                        "core": 0
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 1,
+                        "min": 0
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 1
+                    },
+                    "usage": {
+                        "avg": 2,
+                        "max": 4,
+                        "min": 1
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 2
+                    },
+                    "usage": {
+                        "avg": 4,
+                        "max": 6,
+                        "min": 3
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 3
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 0,
+                        "min": 0
+                    }
+                }
+            ],
+            "name": "CpuStats",
+            "ts": 1724305325134
+        },
+        {
+            "device": {
+                "serialnumber": "HA012306Y-10028"
+            },
+            "items": [
+                {
+                    "keys": {
+                        "core": 0
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 1,
+                        "min": 0
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 1
+                    },
+                    "usage": {
+                        "avg": 2,
+                        "max": 4,
+                        "min": 2
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 2
+                    },
+                    "usage": {
+                        "avg": 4,
+                        "max": 6,
+                        "min": 3
+                    }
+                },
+                {
+                    "keys": {
+                        "core": 3
+                    },
+                    "usage": {
+                        "avg": 0,
+                        "max": 0,
+                        "min": 0
+                    }
+                }
+            ],
+            "name": "CpuStats",
+            "ts": 1724305331161
+        }
+    ]
 }
