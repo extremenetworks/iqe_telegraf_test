@@ -4,7 +4,6 @@ import json
 import paramiko
 import traceback
 
-records_file = "telegraf_stats_cpu"
 number = 1
 
 routes = web.RouteTableDef()
@@ -14,6 +13,7 @@ async def post_stats(request):
     global number
     data = await request.json()
     print(data)
+    records_file = f'telegraf_{list(data.keys())[0]}'
     with open(records_file + str(number) + '.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
     print("\n\n")
@@ -61,7 +61,7 @@ apIp = '10.234.102.78'
 user = 'admin'
 pwd = 'Aerohive123'
 config_cmd = ['telegraf platform stats cpu enable',
-              'telegraf platform stats url http://134.141.244.62:9000/v1',
+              'telegraf platform stats url http://134.141.202.162:9000/v1',
               'telegraf platform stats cpu flush-interval 10'
               'telegraf platform stats cpu sample-count 2',
               'telegraf platform stats cpu sample-interval 5',
@@ -112,4 +112,4 @@ def get_ap_cpu():
         print("ssh failed")
 
 
-web.run_app(init_app(), host='134.141.244.62', port=9000)
+web.run_app(init_app(), host='10.234.91.180', port=9000)
