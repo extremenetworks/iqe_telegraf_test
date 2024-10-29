@@ -4,7 +4,7 @@ import json
 import paramiko
 import traceback
 
-records_file = "telegraf_stats_cpu"
+records_file = "telegraf_stats"
 number = 1
 
 routes = web.RouteTableDef()
@@ -57,12 +57,12 @@ def open_ap_ssh_connection(apIp, user, password, timeout=60):
         return None
     return ssh
 
-apIp = '192.168.2.44'
+apIp = '10.234.51.31'
 user = 'admin'
-pwd = 'Aerohive123'
+pwd = 'Admin@123'
 #pwd = 'new2day'
 config_cmd = ['telegraf platform stats cpu enable',
-              'telegraf platform stats url http://192.168.2.12:9000/v1',
+              'telegraf platform stats url http://10.234.165.202:9000/v1',
           'telegraf platform stats cpu flush-interval 10'
           'telegraf platform stats cpu sample-count 2',
           'telegraf platform stats cpu sample-interval 5',
@@ -119,4 +119,4 @@ def get_ap_cpu():
 
 #get_ap_cpu()
 
-web.run_app(init_app(), host='192.168.2.12', port=9000)
+web.run_app(init_app(), host='10.234.165.202', port=9000)

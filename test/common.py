@@ -72,7 +72,6 @@ def validate_object_spec(spec, obj, obj_name, schemas_spec):
     if spec.get("properties", ""):
         for prop, p_spec in spec.get("properties", {}).items():
             value = obj.get(prop)
-            print(f"Checking property: {prop}, Value: {value}")
             if '$ref' in p_spec:
                 p_spec = get_ref_from_spec(schemas_spec,p_spec['$ref'])
             if prop in obj:
@@ -123,3 +122,21 @@ def validate_object_spec(spec, obj, obj_name, schemas_spec):
 
     return None
 
+def find_first_json_with_tag(tag):
+    # Get the current working directory
+    directory = os.getcwd()
+    # List all files in the directory
+    for filename in os.listdir(directory):
+        if filename.endswith('.json'):
+            filepath = os.path.join(directory, filename)
+            # Open and load the JSON file
+            with open(filepath, 'r') as f:
+                try:
+                    data = json.load(f)
+                    # Check if the tag exists in the JSON data
+                    if tag in data:
+                        return filename  # Return the filename as soon as the tag is found
+                except json.JSONDecodeError:
+                    print(f"Error decoding JSON in {filename}")
+
+    return None  # Return None if no file with the specified tag is found
