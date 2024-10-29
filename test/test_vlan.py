@@ -117,7 +117,6 @@ class ShellConnect:
             while not ch.recv_ready():
                 await asyncio.sleep(3)
             out += ch.recv(1024).decode()
-            print(out)
         return out
 
 async def configure_ap_telegraf():
@@ -315,14 +314,14 @@ async def test_post():
     global found_stats  
     found_stats = False
 
-    first_json_with_tag = common_m.find_first_json_with_tag("ethernetInterfaceVlanStats")
-    if first_json_with_tag:
-        print("Found the first JSON with ethernetInterfaceVlanStats tag in:", first_json_with_tag)
-        with open(first_json_with_tag) as f:
+    last_json_with_tag = common_m.find_last_json_with_tag("ethernetInterfaceVlanStats")
+    if last_json_with_tag:
+        print("Found the last JSON with ethernetInterfaceVlanStats tag in:", last_json_with_tag)
+        with open(last_json_with_tag) as f:
             obj = json.load(f)
             validation = common_m.validate_object_spec(stats_element_spec, obj["ethernetInterfaceVlanStats"][0], "EthernetInterfaceStatsCallbackElement", schemas_spec)
             assert validation is None, f"{validation}"
-            await compare_vlan_stats(first_json_with_tag)
+            await compare_vlan_stats(last_json_with_tag)
             
     else:
         # print("No JSON file contains the specified tag.") 

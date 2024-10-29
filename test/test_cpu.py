@@ -196,10 +196,10 @@ async def test_post():
 
     found_stats = False
 
-    first_json_with_tag = common_m.find_first_json_with_tag("cpuStats")
-    if first_json_with_tag:
-        print("Found the First JSON with cpuStats tag in:", first_json_with_tag)
-        with open(first_json_with_tag) as f:
+    last_json_with_tag = common_m.find_last_json_with_tag("cpuStats")
+    if last_json_with_tag:
+        print("Found the last JSON with cpuStats tag in:", last_json_with_tag)
+        with open(last_json_with_tag) as f:
             obj = json.load(f)
             validation = common_m.validate_object_spec(stats_element_spec, obj["cpuStats"][0], "CpuStatsCallbackElement", schemas_spec)
             assert validation is None, f"{validation}"

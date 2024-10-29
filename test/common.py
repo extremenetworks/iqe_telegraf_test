@@ -122,7 +122,9 @@ def validate_object_spec(spec, obj, obj_name, schemas_spec):
 
     return None
 
-def find_first_json_with_tag(tag):
+def find_last_json_with_tag(tag):
+    last_json = None
+    last_file = None
     # Get the current working directory
     directory = os.getcwd()
     # List all files in the directory
@@ -135,8 +137,8 @@ def find_first_json_with_tag(tag):
                     data = json.load(f)
                     # Check if the tag exists in the JSON data
                     if tag in data:
-                        return filename  # Return the filename as soon as the tag is found
+                        last_json = data
+                        last_file = filename
                 except json.JSONDecodeError:
                     print(f"Error decoding JSON in {filename}")
-
-    return None  # Return None if no file with the specified tag is found
+    return last_file
