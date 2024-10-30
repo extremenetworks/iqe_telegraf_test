@@ -4,6 +4,13 @@ import ipaddress
 import common as common_m
 import yaml
 
+# AP and server creds
+apIp = '10.234.51.31'
+user = 'admin'
+pwd = 'Admin@123'
+api_host_name = '10.234.165.202'
+port_number = 9000
+
 def get_ref_from_spec(spec, ref):
     expected_prefix = "#/components/schemas/"
     if not ref.startswith(expected_prefix):

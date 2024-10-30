@@ -13,6 +13,7 @@ import yaml
 import traceback
 import os
 import json
+from common import apIp, user, pwd, api_host_name, port_number
 
 NOS_OPEN_API_PATH = "nos-openapi.yaml"
 
@@ -43,14 +44,11 @@ def open_ap_ssh_connection(apIp, user, password, timeout=30):
         return None
     return ssh
 
-apIp = '10.234.51.31'
-user = 'admin'
-pwd = 'Admin@123'
 config_cmd = ['telegraf ethernet stats vlan-counter enable',
-              'telegraf ethernet stats vlan-counter url http://10.234.165.202:9000/v1',
+              f'telegraf ethernet stats vlan-counter url http://{api_host_name}:{port_number}/v1',
               'telegraf ethernet stats vlan-counter flush-interval 10',
               'telegraf ethernet stats vlan-counter sample-interval 5',
-          ]
+        ]
 
 show_cmd = ['show interface vlan counters',]
 

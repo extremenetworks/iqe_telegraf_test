@@ -10,6 +10,7 @@ import paramiko
 import common as common_m
 import yaml
 import traceback
+from common import apIp, user, pwd, api_host_name, port_number
 
 records_file = "telegraf_stats_cpu1.json"
 NOS_OPEN_API_PATH = "nos-openapi.yaml"
@@ -54,11 +55,8 @@ def open_ap_ssh_connection(apIp, user, password, timeout=30):
         return None
     return ssh
 
-apIp = '10.234.51.31'
-user = 'admin'
-pwd ='Admin@123'
 config_cmd = ['telegraf platform stats cpu enable',
-              'telegraf platform stats url http://10.234.165.202:9000/v1',
+              f'telegraf platform stats url http://{api_host_name}:{port_number}/v1',
               'telegraf platform stats flush-interval 10',
               'telegraf platform stats cpu sample-count 3',
               'telegraf platform stats cpu sample-interval 5',
