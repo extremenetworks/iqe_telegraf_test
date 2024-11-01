@@ -4,6 +4,13 @@ import ipaddress
 import common as common_m
 import yaml
 
+# AP and server creds
+apIp = '10.234.51.31'
+user = 'admin'
+pwd = 'Admin@123'
+api_host_name = '10.234.165.202'
+port_number = 9000
+
 def get_ref_from_spec(spec, ref):
     expected_prefix = "#/components/schemas/"
     if not ref.startswith(expected_prefix):
@@ -72,7 +79,6 @@ def validate_object_spec(spec, obj, obj_name, schemas_spec):
     if spec.get("properties", ""):
         for prop, p_spec in spec.get("properties", {}).items():
             value = obj.get(prop)
-            print(f"Checking property: {prop}, Value: {value}")
             if '$ref' in p_spec:
                 p_spec = get_ref_from_spec(schemas_spec,p_spec['$ref'])
             if prop in obj:
@@ -123,3 +129,23 @@ def validate_object_spec(spec, obj, obj_name, schemas_spec):
 
     return None
 
+def find_last_json_with_tag(tag):
+    last_json = None
+    last_file = None
+    # Get the current working directory
+    directory = os.getcwd()
+    # List all files in the directory
+    for filename in os.listdir(directory):
+        if filename.endswith('.json'):
+            filepath = os.path.join(directory, filename)
+            # Open and load the JSON file
+            with open(filepath, 'r') as f:
+                try:
+                    data = json.load(f)
+                    # Check if the tag exists in the JSON data
+                    if tag in data:
+                        last_json = data
+                        last_file = filename
+                except json.JSONDecodeError:
+                    print(f"Error decoding JSON in {filename}")
+    return last_file

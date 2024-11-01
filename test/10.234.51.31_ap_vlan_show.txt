@@ -1,0 +1,9 @@
+Last login: Tue Oct 29 09:58:18 2024 from 10.234.165.202
+show interface vlan counters
+Copyright (c) 2006-2023 Extreme Networks, Inc.
+Dev-3-0032#show interface vlan counters
+ifIndex	name	vlanId	inOctets	outOctets	inDiscards	outDiscards	inUcastPkts	outUcastPkts	inBroadcastPkts	outBroadcastPkts	inMulticastPkts	outMulticastPkts
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+0		eth0		1		1237047		464635		0		0		2052		2971		6908		407		2190		36
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Dev-3-0032#

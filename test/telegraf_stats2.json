@@ -1,0 +1,64 @@
+{
+    "ethernetInterfaceVlanStats": [
+        {
+            "device": {
+                "serialnumber": "HA022221Y-10032"
+            },
+            "items": [
+                {
+                    "keys": {
+                        "ifIndex": 0,
+                        "name": "eth0",
+                        "vlanId": 1
+                    },
+                    "stats": {
+                        "errors": {
+                            "inDiscards": 0,
+                            "outDiscards": 0
+                        },
+                        "inBroadcastPkts": 6752,
+                        "inMulticastPkts": 2151,
+                        "inOctets": 1208812,
+                        "inUcastPkts": 2002,
+                        "outBroadcastPkts": 403,
+                        "outMulticastPkts": 36,
+                        "outOctets": 452273,
+                        "outUcastPkts": 2898
+                    }
+                }
+            ],
+            "name": "EthernetInterfaceVlanStats",
+            "ts": 1730195903912
+        },
+        {
+            "device": {
+                "serialnumber": "HA022221Y-10032"
+            },
+            "items": [
+                {
+                    "keys": {
+                        "ifIndex": 0,
+                        "name": "eth0",
+                        "vlanId": 1
+                    },
+                    "stats": {
+                        "errors": {
+                            "inDiscards": 0,
+                            "outDiscards": 0
+                        },
+                        "inBroadcastPkts": 6794,
+                        "inMulticastPkts": 2158,
+                        "inOctets": 1213790,
+                        "inUcastPkts": 2008,
+                        "outBroadcastPkts": 404,
+                        "outMulticastPkts": 36,
+                        "outOctets": 453450,
+                        "outUcastPkts": 2909
+                    }
+                }
+            ],
+            "name": "EthernetInterfaceVlanStats",
+            "ts": 1730195909939
+        }
+    ]
+}
